@@ -52,7 +52,7 @@ One schema for every attestation. A decoder built today reads an attestation wri
 ## Files
 
 - `src/attestation.ts`, types, the schema constant, the pure builder and the decoder.
-- `test/attestation.test.ts`, 12 tests: digest parity with node crypto, changed text changes the digest, changed text changes the payload but not the schema, stable schema, round trip, Date handling, and three refusal cases.
+- `test/attestation.test.ts`, 13 tests: digest parity with node crypto, changed text changes the digest, changed text changes the payload but not the schema, stable schema, round trip, Date handling, and three refusal cases.
 
 ## House rules honoured
 

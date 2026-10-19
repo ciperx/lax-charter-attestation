@@ -52,6 +52,10 @@ function toUnixSeconds(date: number | Date): number {
   if (!Number.isFinite(value) || value < 0) {
     throw new TypeError("date must be a non negative integer of unix seconds");
   }
+  // uint64 fits far more than any real date; a value past year 3000 is a bug upstream.
+  if (value > 32_503_680_000) {
+    throw new TypeError("date must be before the year 3000");
+  }
   return value;
 }
 

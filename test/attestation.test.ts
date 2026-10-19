@@ -52,11 +52,17 @@ describe("buildAttestation", () => {
   });
 
   it("keeps one stable schema string", async () => {
+    // Frozen literal on purpose: comparing the export to itself would pass even
+    // if the string silently changed, and every existing attestation would break.
+    const FROZEN =
+      "string charterDigest,string constitutionDigest,string soulDigest," +
+      "string charterCid,string constitutionCid,string soulCid," +
+      "string version,uint64 date";
     const a = await buildAttestation(base);
     const b = await buildAttestation({ ...base, version: "2.0", date: 1792500000 });
-    expect(a.schema).toBe(SCHEMA);
-    expect(b.schema).toBe(SCHEMA);
-    expect(a.schema).toBe(b.schema);
+    expect(a.schema).toBe(FROZEN);
+    expect(b.schema).toBe(FROZEN);
+    expect(SCHEMA).toBe(FROZEN);
   });
 
   it("round trips through the decoder", async () => {
@@ -85,6 +91,10 @@ describe("buildAttestation", () => {
 
   it("refuses a negative date", async () => {
     await expect(buildAttestation({ ...base, date: -1 })).rejects.toThrow(/date/);
+  });
+
+  it("refuses a date past the year 3000", async () => {
+    await expect(buildAttestation({ ...base, date: 32_503_680_001 })).rejects.toThrow(/year 3000/);
   });
 
   it("is deterministic for the same input", async () => {
