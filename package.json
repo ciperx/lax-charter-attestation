@@ -1,0 +1,20 @@
+{
+  "name": "lax-charter-attestation",
+  "version": "1.0.0",
+  "description": "Build one EAS attestation payload from the Charter, Constitution and SOUL texts and their IPFS ids, with stable sha256 digests and one stable schema string.",
+  "type": "module",
+  "main": "dist/attestation.js",
+  "types": "dist/attestation.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.13.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}
